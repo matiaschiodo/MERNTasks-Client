@@ -37,7 +37,8 @@
     ]
   },
   "devDependencies": {
-    "standard": "^16.0.4"
+    "standard": "^16.0.4",
+    "uuid": "^8.3.2"
   },
   "esLintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"

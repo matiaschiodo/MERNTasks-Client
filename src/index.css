@@ -126,7 +126,7 @@ aside  {
   color: var(--gris2);
 }
 .projects {
-  margin-top: 10rem;
+  margin-top: 5rem;
 }
 .projects-list li {
   margin-bottom: 2rem;
@@ -260,6 +260,7 @@ aside  {
   max-width: 600px;
   margin: 2rem auto 0 auto;
   background-color: rgb(170, 0, 0);
+  border-radius: .5rem;
   color: var(--blanco);
 }
 

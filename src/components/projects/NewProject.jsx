@@ -2,9 +2,14 @@ import React, { useState, useContext } from 'react';
 import projectContext from '../../context/projects/projectContext'
 
 const NewProject = () => {
-
   const projectsContext = useContext(projectContext)
-  const { form, showForm } = projectsContext
+  const {
+    form,
+    showForm,
+    addProject,
+    showError,
+    errorForm
+  } = projectsContext
 
   const [project, setProject] = useState({
     name: ''
@@ -21,6 +26,14 @@ const NewProject = () => {
 
   const onSubmitProject = e => {
     e.preventDefault()
+    if(name === '') {
+      showError()
+      return
+    }
+    addProject(project)
+    setProject({
+      name: ''
+    })
   }
 
   return (
@@ -33,7 +46,7 @@ const NewProject = () => {
         New Project
       </button>
 
-      {form
+      { form
         ? (<form
         className="form-new-project"
         onSubmit={onSubmitProject}
@@ -52,6 +65,10 @@ const NewProject = () => {
           value="Add project"
         />
       </form>)
+        : null
+      }
+      { errorForm
+        ? <p className="error message">Project name is required.</p>
         : null
       }
     </>
