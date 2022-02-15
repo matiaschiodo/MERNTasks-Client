@@ -98,7 +98,7 @@ a {
       background-color: var(--blanco);
       flex: 0 0 300px;
   }
-  .section-principal {
+  .principal-section {
       flex: 1;
   }
 
@@ -111,7 +111,12 @@ a {
 
 /* BARRA LATERAL */
 aside  {
-  padding: 3rem;
+  padding: 6rem;
+}
+@media (max-width: 768px) {
+  aside {
+    height: calc(100vh - 105px);
+  }
 }
 
 .form-new-project {
@@ -162,6 +167,7 @@ aside  {
 .form {
   background-color: var(--gris3);
   padding: 4rem;
+  border-radius: 0 0 3rem 3rem;
 }
 .form form {
   max-width: 600px;
@@ -184,6 +190,33 @@ aside  {
 
 .container-tasks {
   padding: 4rem;
+  overflow-y: scroll;
+  max-height: calc(100vh - 29rem);
+}
+@media (max-width: 768px) {
+  .container-tasks {
+    min-height: 100vh;
+    overflow-y: visible;
+  }
+}
+
+::-webkit-scrollbar{
+	width: 10px;
+}
+
+::-webkit-scrollbar-track-piece{
+	background-color: #FFF;
+}
+
+::-webkit-scrollbar-thumb{
+	background-color: #CBCBCB;
+	outline: 2px solid #FFF;
+	outline-offset: -2px;
+	border: .1px solid #B7B7B7;
+}
+
+::-webkit-scrollbar-thumb:hover{
+	background-color: #909090;
 }
 
 .tasks-list {
@@ -265,8 +298,8 @@ aside  {
 }
 
 
-.enter-task,
-.enter-project {
+.task-enter,
+.project-enter {
   opacity: 0;
 }
 .task-enter-active,

@@ -7,7 +7,7 @@ import {
   DELETE_PROJECT
 } from '../../types'
 
-export default (state, action) => {
+export default function reducer(state, action) {
   switch(action.type) {
     case FORM_PROJECT:
       return {

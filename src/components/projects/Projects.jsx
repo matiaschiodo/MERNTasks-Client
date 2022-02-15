@@ -7,10 +7,8 @@ import TaskList from '../tasks/TaskList'
 const Projects = () => {
   return (
     <div className="container-app">
-      <aside>
-        <Sidebar/>
-      </aside>
-      <div className="section-principal">
+      <Sidebar/>
+      <div className="principal-section">
         <Navbar/>
 
         <main>
