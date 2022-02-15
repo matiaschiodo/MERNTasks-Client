@@ -48,23 +48,23 @@ const NewProject = () => {
 
       { form
         ? (<form
-        className="form-new-project"
-        onSubmit={onSubmitProject}
-      >
-        <input
-          type="text"
-          className="input-text"
-          placeholder="Project name"
-          name="name"
-          value={name}
-          onChange={onChangeProject}
-        />
-        <input
-          type="submit"
-          className="btn btn-primary btn-block"
-          value="Add project"
-        />
-      </form>)
+              className="form-new-project"
+              onSubmit={onSubmitProject}
+            >
+              <input
+                type="text"
+                className="input-text"
+                placeholder="Project name"
+                name="name"
+                value={name}
+                onChange={onChangeProject}
+              />
+              <input
+                type="submit"
+                className="btn btn-primary btn-block"
+                value="Add project"
+              />
+            </form>)
         : null
       }
       { errorForm

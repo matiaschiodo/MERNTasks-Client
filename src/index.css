@@ -13,7 +13,13 @@
 html {
   box-sizing: border-box;
   height: 100%;
-  font-size: 62.5%; 
+  font-size: 62.5%;
+  overflow-y: hidden;
+}
+@media (max-width: 768px) {
+  html {
+  overflow-y: auto;
+  }
 }
 body {
   min-height: 100%;
@@ -22,7 +28,6 @@ body {
   font-size: 1.6rem;
   font-family: var(--textFont);
 }
-
 
 h1, h2 {
   font-family: var(--headingFont);
@@ -87,19 +92,20 @@ a {
   display: block;
   background-color: transparent;
 }
-
+.principal-section {
+  min-height: 100vh;
+}
 @media (min-width: 768px) {
   .container-app {
       display: flex;
-      min-height: 100vh;
   }
-
   aside {
       background-color: var(--blanco);
       flex: 0 0 300px;
   }
   .principal-section {
       flex: 1;
+      min-height: 100vh;
   }
 
   .btn-delete {
@@ -112,6 +118,7 @@ a {
 /* BARRA LATERAL */
 aside  {
   padding: 6rem;
+  max-height: 100vh;
 }
 @media (max-width: 768px) {
   aside {
@@ -131,7 +138,22 @@ aside  {
   color: var(--gris2);
 }
 .projects {
+  overflow-y: scroll;
   margin-top: 5rem;
+}
+.projects-list {
+  max-height: calc(100vh - 31rem);
+}
+.projects-list-open {
+  max-height: calc(100vh - 48rem);
+}
+@media (max-width: 768px) {
+  .projects-list {
+    max-height: calc(100vh - 41rem);
+  }
+  .projects-list-open {
+    max-height: calc(100vh - 57.5rem);
+  }
 }
 .projects-list li {
   margin-bottom: 2rem;
@@ -147,6 +169,7 @@ aside  {
   justify-content: space-between;
   background-color: var(--gris2);
   padding: 4rem;
+  z-index: 1000;
 }
 .username {
   color: var(--blanco);
@@ -195,24 +218,19 @@ aside  {
 }
 @media (max-width: 768px) {
   .container-tasks {
-    min-height: 100vh;
     overflow-y: visible;
   }
 }
 
 ::-webkit-scrollbar{
-	width: 10px;
-}
-
-::-webkit-scrollbar-track-piece{
-	background-color: #FFF;
+	width: 6px;
 }
 
 ::-webkit-scrollbar-thumb{
 	background-color: #CBCBCB;
-	outline: 2px solid #FFF;
 	outline-offset: -2px;
 	border: .1px solid #B7B7B7;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover{
