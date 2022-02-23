@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import projectContext from '../../context/projects/projectContext'
-import taskContext from '../../context/tasks/taskContext'
+import React, { useContext } from "react"
+import projectContext from "../../context/projects/projectContext"
+import taskContext from "../../context/tasks/taskContext"
 
 const Project = ({ project }) => {
   const projectsContext = useContext(projectContext)
@@ -8,7 +8,7 @@ const Project = ({ project }) => {
   const tasksContext = useContext(taskContext)
   const { getTasks } = tasksContext
 
-  const projectSelect = id => {
+  const projectSelect = (id) => {
     actualProject(id)
     getTasks(id)
   }
@@ -16,14 +16,14 @@ const Project = ({ project }) => {
   return (
     <li>
       <button
-        type="button"
-        className="btn btn-blank"
+        type='button'
+        className='btn btn-blank'
         onClick={() => projectSelect(project.id)}
       >
         {project.name}
       </button>
     </li>
-  );
+  )
 }
 
-export default Project;
+export default Project

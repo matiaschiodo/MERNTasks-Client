@@ -1,93 +1,98 @@
-import React, { useContext, useState, useEffect } from 'react';
-import projectContext from '../../context/projects/projectContext'
-import taskContext from '../../context/tasks/taskContext'
-import { v4 as uuidv4 } from 'uuid'
+import React, { useContext, useState, useEffect } from "react"
+import projectContext from "../../context/projects/projectContext"
+import taskContext from "../../context/tasks/taskContext"
+import { v4 as uuidv4 } from "uuid"
 
 const TaskForm = () => {
   const projectsContext = useContext(projectContext)
   const { project } = projectsContext
   const tasksContext = useContext(taskContext)
-  const { addTask, validateTask, errorTask, getTasks, selectedTask, saveActualTask } = tasksContext
+  const {
+    addTask,
+    validateTask,
+    errorTask,
+    getTasks,
+    selectedTask,
+    saveActualTask,
+  } = tasksContext
 
   useEffect(() => {
-    if(selectedTask !== null) {
+    if (selectedTask !== null) {
       setTask(selectedTask)
     } else {
       setTask({
-        name: ''
+        name: "",
       })
     }
   }, [selectedTask])
 
   const [task, setTask] = useState({
-    name: ''
+    name: "",
   })
 
   const { name } = task
 
-  if(!project) return null
+  if (!project) return null
   const [actualProject] = project
 
-
-  const handleChange = e => {
+  const handleChange = (e) => {
     setTask({
       ...task,
-      [e.target.name] : e.target.value,
+      [e.target.name]: e.target.value,
     })
   }
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault()
-    if(name.trim() === '') {
+    if (name.trim() === "") {
       validateTask()
       return
     }
     const newTask = {
       name: name,
-      projectId: actualProject.id
+      projectId: actualProject.id,
     }
-    if(selectedTask === null) {
+    if (selectedTask === null) {
       newTask.id = uuidv4()
       newTask.status = false
     } else {
       newTask.id = selectedTask.id
       newTask.status = selectedTask.status
     }
-    addTask(newTask);
-    getTasks(actualProject.id);
+    addTask(newTask)
+    getTasks(actualProject.id)
     saveActualTask(null)
     setTask({
-        name: ''
+      name: "",
     })
   }
 
-
   return (
-    <div className="form">
-      <form
-        onSubmit={onSubmit}
-      >
-        <div className="container-input">
+    <div className='form'>
+      <form onSubmit={onSubmit}>
+        <div className='container-input'>
           <input
-            type="text"
-            className="input-text"
-            placeholder="Task name"
-            name="name"
+            type='text'
+            className='input-text'
+            placeholder='Task name'
+            name='name'
             value={name}
             onChange={handleChange}
           />
         </div>
-        <div className="container-input">
+        <div className='container-input'>
           <input
-            type="submit"
-            className="btn btn-primary btn-submit btn-block"
-            value={selectedTask ? 'Edit task' : 'Add task'}
+            type='submit'
+            className='btn btn-primary btn-submit btn-block'
+            value={selectedTask ? "Edit task" : "Add task"}
           />
         </div>
       </form>
-      {errorTask ? <p className="message error">Task name is required</p> : null}
+      {errorTask ? (
+        <p className='message error'>Task name is required</p>
+      ) : null}
     </div>
-  );
+  )
 }
 
-export default TaskForm;
+export default TaskForm
