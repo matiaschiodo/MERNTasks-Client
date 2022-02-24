@@ -1,14 +1,24 @@
-import React, { useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useContext, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import alertContext from '../../context/alerts/alertContext'
 import authContext from '../../context/auth/authContext'
 
-const NewAccount = () => {
+const NewAccount = (props) => {
   const alertsContext = useContext(alertContext)
   const { alert, showAlert } = alertsContext
 
   const authsContext = useContext(authContext)
-  const { registerUser } = authsContext
+  const { registerUser, message, authenticated } = authsContext
+
+  let navigate = useNavigate()
+  useEffect(() => {
+    if (authenticated) {
+      navigate('/projects')
+    }
+    if (message) {
+      showAlert(message.msg, message.category)
+    }
+  }, [message, authenticated, navigate])
 
   const [user, setUser] = useState({
     email: '',
@@ -59,17 +69,6 @@ const NewAccount = () => {
         <h1>Sign Up</h1>
         <form onSubmit={onSubmit}>
           <div className='input-form'>
-            <label htmlFor='email'>Email</label>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              placeholder='email'
-              value={email}
-              onChange={onChange}
-            />
-          </div>
-          <div className='input-form'>
             <label htmlFor='name'>Name</label>
             <input
               type='text'
@@ -77,6 +76,17 @@ const NewAccount = () => {
               name='name'
               placeholder='name'
               value={name}
+              onChange={onChange}
+            />
+          </div>
+          <div className='input-form'>
+            <label htmlFor='email'>Email</label>
+            <input
+              type='email'
+              id='email'
+              name='email'
+              placeholder='email'
+              value={email}
               onChange={onChange}
             />
           </div>

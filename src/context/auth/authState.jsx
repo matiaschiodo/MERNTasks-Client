@@ -1,10 +1,12 @@
 import React, { useReducer } from 'react'
 import axiosClient from '../../config/axios'
+import authToken from '../../config/authToken.js'
 import authContext from './authContext'
 import authReducer from './authReducer'
 import {
   SUCCESSFUL_REGISTRATION,
   REGISTRATION_ERROR,
+  GET_USER,
   SUCCESSFUL_LOGIN,
   LOGIN_ERROR,
   LOG_OUT,
@@ -28,6 +30,7 @@ const AuthState = (props) => {
         type: SUCCESSFUL_REGISTRATION,
         payload: res.data,
       })
+      userAuthenticate()
     } catch (error) {
       const alert = {
         msg: error.response.data.msg,
@@ -36,6 +39,25 @@ const AuthState = (props) => {
       dispatch({
         type: REGISTRATION_ERROR,
         payload: alert,
+      })
+    }
+  }
+
+  const userAuthenticate = async () => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      authToken(token)
+    }
+    try {
+      const res = await axiosClient.get('/api/auth')
+      dispatch({
+        type: GET_USER,
+        payload: res.data.user,
+      })
+    } catch (error) {
+      dispatch({
+        type: LOGIN_ERROR,
+        payload: error,
       })
     }
   }
