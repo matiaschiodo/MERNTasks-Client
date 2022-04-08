@@ -1,10 +1,18 @@
-import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import React, { useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
+import alertContext from '../../context/alerts/alertContext'
+import authContext from '../../context/auth/authContext'
 
 const Login = () => {
+  const alertsContext = useContext(alertContext)
+  const { alert, showAlert } = alertsContext
+
+  const authsContext = useContext(authContext)
+  const { registerUser, message, authenticated, logIn } = authsContext
+
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   })
 
   const { email, password } = user
@@ -18,10 +26,16 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
+    if (email.trim() === '' || password.trim() === '') {
+      showAlert('All fields are required', 'alert-error')
+    }
+
+    logIn({ email, password })
   }
 
   return (
     <div className='form-user'>
+      {alert ? <div className={`alert ${alert.category}`}>{alert.msg}</div> : null}
       <div className='container-form shadow-dark'>
         <h1>Log In</h1>
         <form onSubmit={onSubmit}>
@@ -48,15 +62,11 @@ const Login = () => {
             />
           </div>
           <div className='input-form'>
-            <input
-              type='submit'
-              className='btn btn-primary btn-block'
-              value='Login'
-            />
+            <input type='submit' className='btn btn-primary btn-block' value='Login' />
           </div>
         </form>
 
-        <Link to={"/new-account"} className='link-account'>
+        <Link to={'/new-account'} className='link-account'>
           Create new account
         </Link>
       </div>
